@@ -2,8 +2,8 @@ import chess
 
 class Game: 
 
-    def __init__(self):
-        self.board = chess.Board()
+    def __init__(self, board_fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"):
+        self.board = chess.Board(board_fen)
         self.move_count = 0
        
     def move(self, code):
