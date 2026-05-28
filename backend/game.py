@@ -23,7 +23,7 @@ class Game:
         post: board is updated to reflect the move that was taken back, ascii 
               representation of board is printed to command line
         """
-        pass
+        self.board.pop()
 
     def legal_moves(self)->str: 
         """
