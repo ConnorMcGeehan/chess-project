@@ -18,38 +18,38 @@ class TestGame:
 
         # Test basic moves for each piece 
         # Pawns
-        game.move("E4")
+        game.move("e4")
         game.move("e5")
         assert game.board.board_fen() == "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR"
         
         # Knights
         game.move("Nf3")
-        game.move("nf6")
+        game.move("Nf6")
         assert game.board.board_fen() == "rnbqkb1r/pppp1ppp/5n2/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R"
 
         # Bishops
-        game.move("bb5")
-        game.move("BB4")
+        game.move("Bb5")
+        game.move("Bb4")
         assert game.board.board_fen() == "rnbqk2r/pppp1ppp/5n2/1B2p3/1b2P3/5N2/PPPP1PPP/RNBQK2R"
 
         # Rooks
-        game.move("rg1")
-        game.move("RG8")
+        game.move("Rg1")
+        game.move("Rg8")
         assert game.board.board_fen() == "rnbqk1r1/pppp1ppp/5n2/1B2p3/1b2P3/5N2/PPPP1PPP/RNBQK1R1"
 
         # Queens
-        game.move("QE2")
-        game.move("qe7")
+        game.move("Qe2")
+        game.move("Qe7")
         assert game.board.board_fen() == "rnb1k1r1/ppppqppp/5n2/1B2p3/1b2P3/5N2/PPPPQPPP/RNB1K1R1"
 
         # Kings
-        game.move("KD1")
-        game.move("kd8")
+        game.move("Kd1")
+        game.move("Kd8")
         assert game.board.board_fen() == "rnbk2r1/ppppqppp/5n2/1B2p3/1b2P3/5N2/PPPPQPPP/RNBK2R1"
 
         # Test captures
         game.move("Bxd7")
-        game.move("Qxb7")
+        game.move("Qxd7")
         assert game.board.board_fen() == "rnbk2r1/pppq1ppp/5n2/4p3/1b2P3/5N2/PPPPQPPP/RNBK2R1"
 
         # Test castling
@@ -62,11 +62,11 @@ class TestGame:
 
         # Test LAN (Long Algebraic Notation) 
         # Both white rooks can reach e1; specify which file the rook comes from
-        game3 = Game("4k3/8/8/8/8/8/8/R3K2R w KQ - 0 1")
-        game3.move("Ra1e1")
-        assert game3.board.board_fen() == "4k3/8/8/8/8/8/8/4KR1R"
-        game3.move("ke8d8")  
-        assert game3.board.board_fen() == "3k4/8/8/8/8/8/8/4KR1R"
+        game3 = Game("4k3/8/8/8/8/8/4K3/R6R w KQ - 0 1")
+        game3.move("Rae1")
+        assert game3.board.board_fen() == "4k3/8/8/8/8/8/4K3/4R2R"
+        game3.move("K8d8")  
+        assert game3.board.board_fen() == "3k4/8/8/8/8/8/4K3/4R2R"
 
         # Test check
         game4 = Game("4k3/8/8/8/8/8/8/4K2R w K - 0 1")
@@ -74,9 +74,9 @@ class TestGame:
         assert game4.board.board_fen() == "4k2R/8/8/8/8/8/8/4K3"
 
         # Test checkmate
-        game5 = Game("4k3/R7/8/8/8/8/8/R3K3 w Q - 0 1")
+        game5 = Game("4k3/1R6/8/8/8/8/8/R3K3 w Q - 0 1")
         game5.move("Ra8#")
-        assert game5.board.board_fen() == "R3k3/R7/8/8/8/8/8/4K3"
+        assert game5.board.board_fen() == "R3k3/1R6/8/8/8/8/8/4K3"
 
         game = Game()
         with pytest.raises(chess.InvalidMoveError):
@@ -93,14 +93,14 @@ class TestGame:
             game.move("Nf6")    
 
         # Moving into / through check
-        game2 = Game("4k3/8/8/8/8/8/8/R3K2b w Q - 0 1")
+        game2 = Game("3qk3/8/8/8/8/8/8/R3K3 w Q - 0 1")
         with pytest.raises(chess.IllegalMoveError):
             game2.move("O-O-O")    # can't castle through check (bishop covers d1)
 
-        # Ambiguous move — two knights can both reach f3
+        # Ambiguous move — two knights can both reach c3
         game3 = Game("4k3/8/8/8/8/8/8/1N1NK3 w - - 0 1")
         with pytest.raises(chess.AmbiguousMoveError):
-            game3.move("Nd2")      # both knights can reach d2 
+            game3.move("Nc3")      # both knights can reach c3 
 
         # TODO: Add test only allowing the proper color to move (include 
         # illegal attempts in previous section)
