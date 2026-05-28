@@ -25,19 +25,30 @@ class Game:
         """
         self.board.pop()
 
-    def legal_moves(self)->str: 
+    def get_legal_moves(self)->str: 
         """
-        returns a string that lists the algebraic notation of the legal moves
+        return: string that lists the algebraic notation of the legal moves
                  the player can make
         """
-        pass
+        legal = self.board.legal_moves
+        possible_moves = ""
+
+        for move in legal:
+            san = self.board.san(move)
+            possible_moves += san + " "
+
+        return possible_moves[0:-1]
 
     def mate_in_one(self)->bool:
         """
         return: boolean, true if the current player has opportunity for mate-
                 in-one, false otherwise
         """
-        pass
+        moves = self.get_legal_moves()
+        if "#" in moves:
+            return True
+        else:
+            return False
 
     def check_castle(self)->str:
         """
