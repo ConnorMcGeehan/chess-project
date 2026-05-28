@@ -180,12 +180,22 @@ class TestGame:
         game2 = Game("rnb1kbnr/pppp1ppp/4p3/8/6Pq/5P2/PPPPP2P/RNBQKBNR w KQkq - 1 3")
         assert game2.legal_moves().split() == []
 
-        # Only legal moves escape check
-        game3 = Game("4k3/8/8/8/8/8/8/R3K2R b KQ - 0 1")
-        game3.move("ke8d8") if "ke8d8" in game3.legal_moves() else None
-        game4 = Game("3k4/R7/1R6/8/8/8/8/4K3 b - - 0 1")  # black king has 1 legal move
-        legal = game4.legal_moves().split()
+        # Only one legal move 
+        game3 = Game("2k5/R7/3R4/8/8/8/8/4K3 b - - 0 1")  # black king has 1 legal move
+        legal = game3.legal_moves().split()
         assert len(legal) == 1
+
+        # Only legal moves escape check
+        game4 = Game("1k6/R7/1Q6/8/8/8/8/4K3 b - - 0 1") 
+        legal = game4.legal_moves().split()
+        assert len(legal) == 1 
+        assert "Kc8" in legal
+
+        # String is returned in proper format
+        game5 = Game("1k6/R7/1R6/8/8/8/8/4K3 b - - 0 1") 
+        legal = game5.legal_moves()
+        assert legal == "Kxa7, Kc8" or legal == "Kc8, Kxa7"
+
 
     
     def test_mate_in_one(self):
