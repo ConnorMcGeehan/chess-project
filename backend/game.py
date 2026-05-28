@@ -4,7 +4,6 @@ class Game:
 
     def __init__(self, board_fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"):
         self.board = chess.Board(board_fen)
-        self.move_count = 0
        
     def move(self, san)->None:
         """
@@ -55,13 +54,22 @@ class Game:
         return: string 'short allowed', 'long allowed', 'yes', 'no', telling the player if they
                 have castling rights
         """
-        pass
+        if not self.board.has_castling_rights(self.board.turn):
+            return "no"
+        elif self.board.has_kingside_castling_rights(self.board.turn) and self.board.has_queenside_castling_rights(self.board.turn):
+            return "yes"
+        elif self.board.has_kingside_castling_rights(self.board.turn):
+            return "short allowed"
+        else:
+            return "long allowed"
 
     def get_total_moves(self)->int:
         """
-        return: int, move count (a single move is when both white and black have moved)
+        return: int, returns number of full moves that have been made 
+                (increments after black moves), if starting FEN is mid-game
+                that full move count is used
         """
-        pass
+        return self.board.fullmove_number-1
 
 
 
