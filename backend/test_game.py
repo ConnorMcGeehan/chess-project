@@ -194,7 +194,7 @@ class TestGame:
         # String is returned in proper format
         game5 = Game("1k6/R7/1R6/8/8/8/8/4K3 b - - 0 1") 
         legal = game5.legal_moves()
-        assert legal == "Kxa7, Kc8" or legal == "Kc8, Kxa7"
+        assert legal == "Kxa7 Kc8" or legal == "Kc8 Kxa7"
 
 
     
