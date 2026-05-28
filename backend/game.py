@@ -1,3 +1,4 @@
+from types import NoneType
 import chess
 
 class Game: 
@@ -6,7 +7,7 @@ class Game:
         self.board = chess.Board(board_fen)
         self.move_count = 0
        
-    def move(self, code):
+    def move(self, code)->None:
         """
         param code: algebraic notation of the move to be executed
         post: board is updated to reflect the move that was made, and ascii 
@@ -14,42 +15,35 @@ class Game:
         """
         pass
 
-    def undo_move(self):
+    def undo_move(self)->None:
         """
         post: board is updated to reflect the move that was taken back, ascii 
               representation of board is printed to command line
         """
         pass
 
-    def legal_moves(self):
+    def legal_moves(self)->str: 
         """
         returns a string that lists the algebraic notation of the legal moves
                  the player can make
         """
         pass
 
-    def turn(self):
-        """
-        return: returns either the string 'black' or 'white', dictating which
-                players turn it is
-        """
-        pass
-
-    def mate_in_one(self):
+    def mate_in_one(self)->bool:
         """
         return: boolean, true if the current player has opportunity for mate-
                 in-one, false otherwise
         """
         pass
 
-    def check_castle(self):
+    def check_castle(self)->str:
         """
         return: string 'short allowed', 'long allowed', 'yes', 'no', telling the player if they
                 have castling rights
         """
         pass
 
-    def get_total_moves(self):
+    def get_total_moves(self)->int:
         """
         return: int, move count (a single move is when both white and black have moved)
         """
