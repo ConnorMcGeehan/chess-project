@@ -246,23 +246,23 @@ class TestGame:
     
         # Rights lost after king moves
         game5 = Game("r3k2r/pppppppp/8/8/8/8/PPPPPPPP/R3K2R w KQkq - 0 1")
-        game5.move("Ke2")
+        game5.move("Kf1")
         game5.move("e5")
         assert game5.check_castle() == "no"
     
         # Kingside right lost after kingside rook moves
         game6 = Game("r3k2r/pppppppp/8/8/8/8/PPPPPPPP/R3K2R w KQkq - 0 1")
-        game6.move("Rh2")
+        game6.move("Rg1")
         game6.move("e5")
         assert game6.check_castle() == "long allowed"
     
         # Queenside right lost after queenside rook moves
         game7 = Game("r3k2r/pppppppp/8/8/8/8/PPPPPPPP/R3K2R w KQkq - 0 1")
-        game7.move("Ra2")
+        game7.move("Rb1")
         game7.move("e5")
         assert game7.check_castle() == "short allowed"
     
-        # Reflects black's rights when it's black's turn
+        # Rights lost after castling 
         game8 = Game("r3k2r/pppppppp/8/8/4P3/8/PPPP1PPP/R3K2R b KQkq - 0 1")
         assert game8.check_castle() == "yes"
         game8.move("O-O")
@@ -305,11 +305,12 @@ class TestGame:
         game.undo_move()
         assert game.get_total_moves() == 1
     
-        # FEN with fullmove_number > 1 doesn't affect move_count tracking
-        # (move_count tracks moves made *in this game instance*, not the FEN clock)
+        # FEN with fullmove_number > 1 affects move_count tracking
         game2 = Game("rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2")
-        assert game2.get_total_moves() == 0
-        game2.move("d5")
-        assert game2.get_total_moves() == 0
-        game2.move("d4")
         assert game2.get_total_moves() == 1 
+        game2.move("d5")
+        assert game2.get_total_moves() == 2 
+        game2.move("d4")
+        assert game2.get_total_moves() == 2
+
+
