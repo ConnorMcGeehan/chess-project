@@ -1,4 +1,3 @@
-from types import NoneType
 import chess
 
 class Game: 
@@ -7,13 +6,17 @@ class Game:
         self.board = chess.Board(board_fen)
         self.move_count = 0
        
-    def move(self, code)->None:
+    def move(self, san)->None:
         """
-        param code: algebraic notation of the move to be executed
+        param san: standard algebraic notation of the move to be executed
         post: board is updated to reflect the move that was made, and ascii 
               representation of the board is printed to command line
         """
-        pass
+        move = self.board.parse_san(san)
+        if move in self.board.legal_moves:
+            self.board.push(move)
+        else:
+            raise chess.IllegalMoveError(san)
 
     def undo_move(self)->None:
         """
