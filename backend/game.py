@@ -16,6 +16,7 @@ class Game:
             self.board.push(move)
         else:
             raise chess.IllegalMoveError(san)
+        print(self.board)
 
     def undo_move(self)->None:
         """
@@ -23,6 +24,7 @@ class Game:
               representation of board is printed to command line
         """
         self.board.pop()
+        print(self.board)
 
     def get_legal_moves(self)->str: 
         """
